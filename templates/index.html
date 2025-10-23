@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload File</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 50px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 600px;
+        }
+        .custom-file-label::after {
+            content: "Browse";
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Upload File</h1>
+        <form action="{{ url_for('upload_file') }}" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="file" name="file">
+                    <label class="custom-file-label" for="file">Choose file</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Upload</button>
+        </form>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-warning mt-3">
+                    <ul class="mb-0">
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Update the label of the custom file input with the selected file name
+        $('.custom-file-input').on('change', function() {
+            var fileName = $(this).val().split('\\').pop();
+            $(this).next('.custom-file-label').addClass("selected").html(fileName);
+        });
+    </script>
+</body>
+</html>

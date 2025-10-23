@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Results</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 50px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 800px;
+        }
+        .alert-duplicate {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: red;
+            text-align: center;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .table thead th {
+            background-color: #343a40;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Extracted Data</h1>
+        {% if results %}
+            <div class="alert alert-danger alert-duplicate">
+                DUPLICATE DETECTED
+            </div>
+            <table class="table table-bordered table-striped mt-4">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in results %}
+                        <tr>
+                            <td>{{ result['First Entry']['description'] }}</td>
+                            <td>{{ result['First Entry']['amount'] }}</td>
+                            <td>{{ result['First Entry']['date'] }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ result['Second Entry']['description'] }}</td>
+                            <td>{{ result['Second Entry']['amount'] }}</td>
+                            <td>{{ result['Second Entry']['date'] }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-center">Similarity Score: {{ result['Similarity Score'] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="alert alert-success text-center">
+                No duplicates found.
+            </div>
+        {% endif %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
